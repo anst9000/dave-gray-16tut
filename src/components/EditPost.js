@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { format } from 'date-fns'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 
 const EditPost = () => {
   const { id } = useParams()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const editPost = useStoreActions(actions => actions.editPost)
   const editTitle = useStoreState(state => state.editTitle)
@@ -31,7 +31,7 @@ const EditPost = () => {
     const datetime = format(new Date(), 'MMMM dd, yyyy pp')
     const updatedPost = { id, title: editTitle, datetime, body: editBody }
     editPost(updatedPost)
-    history.push(`/post/${id}`)
+    navigate(`/post/${id}`)
   }
 
   return (
